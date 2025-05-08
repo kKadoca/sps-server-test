@@ -1,9 +1,1 @@
-[
-  {
-    "id": 1,
-    "name": "admin",
-    "email": "admin@spsgroup.com.br",
-    "type": "admin",
-    "password": "1234"
-  }
-]
+[{"id":"550e8400-e29b-41d4-a716-446655440000","name":"Admin","email":"admin@spsgroup.com.br","type":"admin","password":"1234"}]

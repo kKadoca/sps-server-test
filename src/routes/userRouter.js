@@ -1,32 +1,32 @@
 import { Router } from "express";
-import userService from "./service/userService.js";
+import userService from "../service/userService.js";
 import { emailExistsMiddleware } from "../middleware/emailExistsMiddleware.js";
+import { v4 as uuidv4 } from 'uuid';
 
 const userRouter = Router();
 
-userRouter.get("/users", (req, res) => {
-  res.json(userService.getUsers());
+userRouter.get("/users", async (req, res) => {
+  res.json(await userService.getUsers());
 });
 
-userRouter.post("/users", emailExistsMiddleware, (req, res) => {
+userRouter.post("/users", emailExistsMiddleware, async (req, res) => {
   const { name, email, type, password } = req.body;
-  const newUser = { id: users.length + 1, name, email, type, password, };
-  res.status(201).json(userService.createUser(newUser));
+  const newUser = { id: uuidv4(), name, email, type, password };
+  res.status(201).json(await userService.createUser(newUser));
 });
 
-userRouter.put("/users/:id", emailExistsMiddleware, (req, res) => {
+userRouter.put("/users/:id", emailExistsMiddleware, async (req, res) => {
   const { id } = req.params;
   const { name, email, type, password } = req.body;
-  const newData = { id: Number(id), name, email, type, password, };
+  const newData = { id, name, email, type, password };
 
-  userService.updateUser(newData);
+  await userService.updateUser(newData);
   res.status(200).send();
 });
 
-userRouter.delete("/users/:id", (req, res) => {
+userRouter.delete("/users/:id", async (req, res) => {
   const { id } = req.params;
-
-  userService.deleteUser(Number(id));
+  await userService.deleteUser(id);
   res.status(200).send();
 });
 

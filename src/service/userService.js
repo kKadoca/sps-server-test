@@ -1,22 +1,22 @@
 import userRepository from '../data/userRepository.js';
 
 const userService = {
-  getUsers: () => {
-    return userRepository.getFromFile();
+  getUsers: async () => {
+    return await userRepository.getFromFile();
   },
-  createUser: (newUser) => {
-    const users = userRepository.getFromFile();
+  createUser: async (newUser) => {
+    const users = await userRepository.getFromFile();
     users.push(newUser);
     userRepository.updateFile(users);
   },
-  updateUser: (newData) => {
-    const users = userRepository.getFromFile();
+  updateUser: async (newData) => {
+    const users = await userRepository.getFromFile();
     const userIndex = users.findIndex(user => user.id == newData.id);
     if (userIndex >= 0) users[userIndex] = newData;
     userRepository.updateFile(users);
   },
-  deleteUser: (userId) => {
-    let users = userRepository.getFromFile();
+  deleteUser: async (userId) => {
+    let users = await userRepository.getFromFile();
     users = users.filter(user => user.id != userId);
     userRepository.updateFile(users);
   },
